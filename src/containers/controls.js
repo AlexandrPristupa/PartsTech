@@ -24,7 +24,6 @@ class Controls extends Component {
 
   handleClick = () => {
     if (_.size(this.props.product)) {
-      debugger;
       if (this.props.cash >= this.props.product.prise) {
         const message = `You buy ${this.props.product.name}`;
         const change = +this.props.cash - this.props.product.prise;
