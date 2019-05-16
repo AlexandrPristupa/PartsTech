@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { object } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import Product from './../components/product';
@@ -6,25 +7,45 @@ import * as actions from '../actions/actions';
 import _ from 'lodash';
 
 class Products extends Component {
-  componentDidMount() {
-    // console.log(this.props.products);
-    // console.log(this.props);
-  }
+  static propTypes = {
+    products: object,
+    product: object,
+    purchasedProducts: object
+  };
+
+  handleSelectProduct = id => {
+    this.props.selectProduct(id)
+  };
 
   render() {
-    console.log(this.props.products);
+    const { product, products } = this.props;
 
     return (
-      <>
-        {_.map(this.props.products, product => <Product product={product} />)}
-      </>
+      <div className='product-list'>
+        { _.size(products) && (
+          _.map(products, item => (
+            <Product
+              onHandleSelectProduct={this.handleSelectProduct}
+              key={item.id}
+              product={item}
+              selectProductId={product.id}
+            />
+          ))
+        ) }
+
+        { !_.size(this.props.products) && (
+          'Products not found'
+        ) }
+      </div>
     )
   }
 }
 
 const mapStateToProps = state => {
   return {
-    products: state.products
+    products: state.reducer.products,
+    product: state.reducer.product,
+    purchasedProducts: state.reducer.purchasedProducts
   }
 };
 

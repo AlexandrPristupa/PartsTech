@@ -1,10 +1,23 @@
 import React from 'react';
+import { string, func, number } from 'prop-types';
 
-const Product = ({ id, name, img }) => (
-  <div>
-    {name}
-    <img src={img} width='60' height='40' alt={name} />
-  </div>
-)
+const Product = ({ product: { id, name, prise }, onHandleSelectProduct, selectProductId }) => {
+  return (
+    <div
+      className={`product ${selectProductId === id ? 'product-active' : null }`}
+      onClick={() => onHandleSelectProduct(id)}
+    >
+      {name}
+      <br />
+      {`${prise}$`}
+    </div>
+  )
+};
+
+Product.propTypes = {
+  product: string,
+  onHandleSelectProduct: func,
+  selectProductId: number
+};
 
 export default Product;

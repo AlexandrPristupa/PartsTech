@@ -9,3 +9,8 @@ export const selectProduct = payload => ({
     type: types.SELECT_PRODUCT,
     payload
 });
+
+export const enterCash = payload => ({
+  type: types.ENTER_CASH,
+  payload
+});
